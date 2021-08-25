@@ -195,7 +195,7 @@ SELECT AVG(amount) FROM payment;
 select distinct customer_id from payment as p
 where p.amount > (select avg(amount) from payment);
 
--- parent query
+-- parent query -> but not fully correct
 SELECT first_name, last_name
 FROM customer
 WHERE customer_id IN(
@@ -204,7 +204,7 @@ FROM payment
 GROUP BY customer_id
 HAVING avg(amount)>(SELECT AVG(amount) FROM payment));
 
--- to do it on the higher level you use the following as base
+-- CORRECT SOLUTION BELOW
 
 -- 1) calculate sum of payments per customer
 
@@ -246,7 +246,7 @@ FROM
 FROM payment
 GROUP BY customer_id) as sum_table)) as new_customer_id;
 
--- connect the customer_ids with the customer names in the customer tabble
+-- Finishing by connecting the customer_ids with the customer names in the customer tabble
 Select first_name, last_name from customer as c
 where c.customer_id in (Select customer_id 
 from(SELECT customer_id, sum(amount) as total_paid

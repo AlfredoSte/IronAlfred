@@ -175,7 +175,7 @@ from payment as p
 group by p.customer_id
 order by sum(amount)
 desc
-limit 1))
+limit 1));
 
 -- parent query
 select title from film as f
@@ -185,15 +185,15 @@ from payment as p
 group by p.customer_id
 order by sum(amount)
 desc
-limit 1)))
+limit 1)));
 
 -- Nr.8 Customers who spent more than the average payments
 -- child query 1 to identify average per payment
-SELECT AVG(amount) FROM payment
+SELECT AVG(amount) FROM payment;
 
 -- child query 2 to identify the customers having > average payments
 select distinct customer_id from payment as p
-where p.amount > (select avg(amount) from payment)
+where p.amount > (select avg(amount) from payment);
 
 -- parent query
 SELECT first_name, last_name
@@ -206,13 +206,58 @@ HAVING avg(amount)>(SELECT AVG(amount) FROM payment));
 
 -- to do it on the higher level you use the following as base
 
--- calculate a table that shows all the payments summed up per customer
+-- 1) calculate sum of payments per customer
 
-SELECT customer_id, AVG(total_paid)
-FROM
-(
-SELECT customer_id, sum(amount) as total_paid FROM
-payment
-GROUP BY customer_id) as table_test
+SELECT customer_id, sum(amount) as total_paid
+FROM payment
 GROUP BY customer_id;
+
+-- 2) calculate the average payment amount per customer
+SELECT sum(total_paid)/count(distinct(customer_id))
+FROM
+(SELECT customer_id, sum(amount) as total_paid
+FROM payment
+GROUP BY customer_id) as sum_table;
+
+
+-- 3) compare and select the customers having > average payments conducted
+SELECT customer_id, sum(amount) as total_paid
+FROM payment
+GROUP BY customer_id
+HAVING total_paid >
+(
+SELECT sum(total_paid)/count(distinct(customer_id))
+FROM
+(SELECT customer_id, sum(amount) as total_paid
+FROM payment
+GROUP BY customer_id) as sum_table);
+
+-- isolate only the customer_ids
+
+Select customer_id 
+from(SELECT customer_id, sum(amount) as total_paid
+FROM payment
+GROUP BY customer_id
+HAVING total_paid >
+(
+SELECT sum(total_paid)/count(distinct(customer_id))
+FROM
+(SELECT customer_id, sum(amount) as total_paid
+FROM payment
+GROUP BY customer_id) as sum_table)) as new_customer_id;
+
+-- connect the customer_ids with the customer names in the customer tabble
+Select first_name, last_name from customer as c
+where c.customer_id in (Select customer_id 
+from(SELECT customer_id, sum(amount) as total_paid
+FROM payment
+GROUP BY customer_id
+HAVING total_paid >
+(
+SELECT sum(total_paid)/count(distinct(customer_id))
+FROM
+(SELECT customer_id, sum(amount) as total_paid
+FROM payment
+GROUP BY customer_id) as sum_table)) as new_customer_id);
+
 

@@ -204,3 +204,15 @@ FROM payment
 GROUP BY customer_id
 HAVING avg(amount)>(SELECT AVG(amount) FROM payment));
 
+-- to do it on the higher level you use the following as base
+
+-- calculate a table that shows all the payments summed up per customer
+
+SELECT customer_id, AVG(total_paid)
+FROM
+(
+SELECT customer_id, sum(amount) as total_paid FROM
+payment
+GROUP BY customer_id) as table_test
+GROUP BY customer_id;
+

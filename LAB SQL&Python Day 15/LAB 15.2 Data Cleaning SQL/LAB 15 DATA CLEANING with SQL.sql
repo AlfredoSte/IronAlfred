@@ -65,6 +65,15 @@ HAVING COUNT(*) > 1)
  SELECT customer from abc
         where count > 1;
 
+-- also did I delete these records but only after deleting the duplicates via the real solution below
+delete from customer_data
+where customer in (WITH abc AS (
+SELECT *, COUNT(*) AS count
+FROM customer_data
+GROUP BY customer,state,customer_lifetime_value, response, coverage,education, effective_to_date, employmentstatus, gender,income,location_code,marital_status, monthly_premium_auto, number_of_policies,policy_type, policy, renew_offer_type,sales_channel,vehicle_class, vehicle_size, vehicle_type
+HAVING COUNT(*) > 1)
+ SELECT customer from abc
+        where count > 1);
 
 -- REAL SOLUTION (proposed by Darinka): only isolate the customer (id)
 

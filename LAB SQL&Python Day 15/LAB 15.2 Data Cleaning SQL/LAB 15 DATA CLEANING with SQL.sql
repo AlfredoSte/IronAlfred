@@ -262,14 +262,15 @@ vehicle_type
 -- 5) REPLACING NULL VALUES
 
 -- FOR "number_of_open_complaints" fill nan values with zero
+
+SELECT number_of_open_complaints FROM customer_data
+WHERE number_of_open_complaints NOT IN (1,2,3,4,5);
+
 SET SQL_SAFE_UPDATES = 0;
 
 
 UPDATE customer_data
 SET number_of_open_complaints = 0
-WHERE number_of_open_complaints NOT IN (1,2,3,4,5);
-
-SELECT number_of_open_complaints FROM customer_data
 WHERE number_of_open_complaints NOT IN (1,2,3,4,5);
 
 

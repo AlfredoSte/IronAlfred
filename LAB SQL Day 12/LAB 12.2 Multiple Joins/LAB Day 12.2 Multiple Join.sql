@@ -3,8 +3,8 @@
 -- question 1 Write a query to display for each store its store ID, city, and country.
 
 select store.store_ID, city.city, country.country
-from store
-Inner join address
+from address
+Inner join store
 on store.address_id = address.address_id
 Inner join city
 on address.city_id = city.city_id

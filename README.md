@@ -1,3 +1,4 @@
 # IronAlfred
-Lab Github day 1 week 1
-It allows me to save for all relevant results to be handed in. Looking forward.
+
+Archive of results from practically applied skills learned during afternnon Labs, split in days and topics covered.
+

@@ -27,6 +27,20 @@
     </_.fcp.AnimationOnByDefault.false..._.fcp.MarkAnimation.true...style-rule>
   </_.fcp.AnimationOnByDefault.false...style>
   <datasources>
+    <datasource hasconnection='false' inline='true' name='Parameters' version='18.1'>
+      <aliases enabled='yes' />
+      <column alias='Average UE' caption='Metric Swap' datatype='integer' name='[Parameter 1]' param-domain-type='list' role='measure' type='quantitative' value='1'>
+        <calculation class='tableau' formula='1' />
+        <aliases>
+          <alias key='1' value='Average UE' />
+          <alias key='2' value='# Policy Type' />
+        </aliases>
+        <members>
+          <member alias='Average UE' value='1' />
+          <member alias='# Policy Type' value='2' />
+        </members>
+      </column>
+    </datasource>
     <datasource caption='adj_customer_analysis_clean' inline='true' name='federated.0kmd8y60u0cori14g08m30vkwslf' version='18.1'>
       <connection class='federated'>
         <named-connections>
@@ -523,6 +537,9 @@
       <column caption='Avg UE Color' datatype='string' name='[Calculation_1185572646178607119]' role='measure' type='nominal'>
         <calculation class='tableau' formula='if [Calculation_1185572646113837064]+0.05&lt;min([Calculation_1185572646175285261])then&quot;Red&quot; &#13;&#10;ELSEIF [Calculation_1185572646113837064]+0.05&gt;min([Calculation_1185572646175285261]) then &quot;Green&quot;&#13;&#10;else  &quot;Black&quot;&#13;&#10;END' />
       </column>
+      <column caption='Multi-Metric' datatype='real' name='[Calculation_1185572651833106448]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='CASE  [Parameters].[Parameter 1]&#13;&#10;WHEN 1 THEN ([Calculation_1185572646113837064])&#13;&#10;WHEN  2 THEN COUNT([policy_type])&#13;&#10;END' />
+      </column>
       <column caption='index' datatype='integer' name='[F1]' role='measure' type='quantitative' />
       <_.fcp.ObjectModelTableType.true...column caption='adj_customer_analysis_clean.csv' datatype='table' name='[__tableau_internal_object_id__].[adj_customer_analysis_clean.csv_BD822C3ADBC640D69FDF791625D36629]' role='measure' type='quantitative' />
       <column aggregation='CountD' datatype='string' default-role='measure' default-type='quantitative' name='[customer_lifetime_value]' role='dimension' type='nominal' />
@@ -558,7 +575,7 @@
           <groupfilter function='level-members' level='[state]' />
         </groupfilter>
       </group>
-      <layout _.fcp.SchemaViewerObjectModel.false...dim-percentage='0.5' _.fcp.SchemaViewerObjectModel.false...measure-percentage='0.4' dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <layout _.fcp.SchemaViewerObjectModel.false...dim-percentage='0.5' _.fcp.SchemaViewerObjectModel.false...measure-percentage='0.4' _.fcp.SchemaViewerObjectModel.true...common-percentage='0.961972' _.fcp.SchemaViewerObjectModel.true...user-set-layout-v2='true' dim-ordering='alphabetic' measure-ordering='alphabetic' parameter-percentage='0.0380282' show-structure='true' />
       <style>
         <style-rule element='mark'>
           <encoding attr='color' field='[:Measure Names]' type='palette'>
@@ -615,6 +632,15 @@
           </dictionary>
         </manual-sort>
       </default-sorts>
+      <datasource-dependencies datasource='Parameters'>
+        <column alias='Average UE' caption='Metric Swap' datatype='integer' name='[Parameter 1]' param-domain-type='list' role='measure' type='quantitative' value='1'>
+          <calculation class='tableau' formula='1' />
+          <aliases>
+            <alias key='1' value='Average UE' />
+            <alias key='2' value='# Policy Type' />
+          </aliases>
+        </column>
+      </datasource-dependencies>
       <_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
         <objects>
           <object caption='adj_customer_analysis_clean.csv' id='adj_customer_analysis_clean.csv_BD822C3ADBC640D69FDF791625D36629'>
@@ -1023,14 +1049,40 @@
       </table>
       <simple-id uuid='{7168EE3A-22E6-49D3-B553-38F6E23BA31D}' />
     </worksheet>
-    <worksheet name='First insights'>
+    <worksheet name='First insights &amp; Parameter'>
       <table>
         <view>
           <datasources>
             <datasource caption='adj_customer_analysis_clean' name='federated.0kmd8y60u0cori14g08m30vkwslf' />
+            <datasource name='Parameters' />
           </datasources>
+          <datasource-dependencies datasource='Parameters'>
+            <column alias='Average UE' caption='Metric Swap' datatype='integer' name='[Parameter 1]' param-domain-type='list' role='measure' type='quantitative' value='1'>
+              <calculation class='tableau' formula='1' />
+              <aliases>
+                <alias key='1' value='Average UE' />
+                <alias key='2' value='# Policy Type' />
+              </aliases>
+            </column>
+          </datasource-dependencies>
           <datasource-dependencies datasource='federated.0kmd8y60u0cori14g08m30vkwslf'>
+            <column caption='float_CLTV' datatype='real' name='[Calculation_1185572644795682821]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='FLOAT([customer_lifetime_value] )' />
+            </column>
+            <column caption='float_claim_amounts' datatype='real' name='[Calculation_1185572644806074374]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='FLOAT([total_claim_amount] )' />
+            </column>
+            <column caption='Unit Economics' datatype='real' name='[Calculation_1185572644809060359]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='[Calculation_1185572644795682821]-[Calculation_1185572644806074374]' />
+            </column>
+            <column caption='Average UE' datatype='real' name='[Calculation_1185572646113837064]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='Sum([Calculation_1185572644809060359])/COUNT([Calculation_1185572644809060359] )' />
+            </column>
+            <column caption='Multi-Metric' datatype='real' name='[Calculation_1185572651833106448]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='CASE  [Parameters].[Parameter 1]&#13;&#10;WHEN 1 THEN ([Calculation_1185572646113837064])&#13;&#10;WHEN  2 THEN COUNT([policy_type])&#13;&#10;END' />
+            </column>
             <column-instance column='[policy_type]' derivation='Count' name='[cnt:policy_type:qk]' pivot='key' type='quantitative' />
+            <column aggregation='CountD' datatype='string' default-role='measure' default-type='quantitative' name='[customer_lifetime_value]' role='dimension' type='nominal' />
             <column datatype='string' name='[education]' role='dimension' type='nominal' />
             <column datatype='date' name='[effective_to_date]' role='dimension' type='ordinal' />
             <column datatype='string' name='[employmentstatus]' role='dimension' type='nominal' />
@@ -1052,8 +1104,18 @@
             <column datatype='string' name='[policy_type]' role='dimension' type='nominal' />
             <column-instance column='[effective_to_date]' derivation='Quarter' name='[qr:effective_to_date:ok]' pivot='key' type='ordinal' />
             <column datatype='string' name='[state]' role='dimension' semantic-role='[State].[Name]' type='nominal' />
+            <column aggregation='CountD' datatype='string' default-role='measure' default-type='quantitative' name='[total_claim_amount]' role='dimension' type='nominal' />
+            <column-instance column='[Calculation_1185572646113837064]' derivation='User' name='[usr:Calculation_1185572646113837064:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Calculation_1185572651833106448]' derivation='User' name='[usr:Calculation_1185572651833106448:qk]' pivot='key' type='quantitative' />
             <column datatype='string' name='[vehicle_class]' role='dimension' type='nominal' />
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.0kmd8y60u0cori14g08m30vkwslf].[:Measure Names]'>
+            <groupfilter function='union' user:op='manual'>
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.0kmd8y60u0cori14g08m30vkwslf].[usr:Calculation_1185572646113837064:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.0kmd8y60u0cori14g08m30vkwslf].[cnt:policy_type:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.0kmd8y60u0cori14g08m30vkwslf].[usr:Calculation_1185572651833106448:qk]&quot;' />
+            </groupfilter>
+          </filter>
           <slices>
             <column>[federated.0kmd8y60u0cori14g08m30vkwslf].[mn:effective_to_date:ok]</column>
             <column>[federated.0kmd8y60u0cori14g08m30vkwslf].[none:state:nk]</column>
@@ -1064,10 +1126,22 @@
             <column>[federated.0kmd8y60u0cori14g08m30vkwslf].[none:employmentstatus:nk]</column>
             <column>[federated.0kmd8y60u0cori14g08m30vkwslf].[none:gender:nk]</column>
             <column>[federated.0kmd8y60u0cori14g08m30vkwslf].[none:income (bin):ok]</column>
+            <column>[federated.0kmd8y60u0cori14g08m30vkwslf].[:Measure Names]</column>
           </slices>
           <aggregation value='true' />
         </view>
-        <style />
+        <style>
+          <style-rule element='cell'>
+            <format attr='width' field='[federated.0kmd8y60u0cori14g08m30vkwslf].[:Measure Names]' value='111' />
+          </style-rule>
+          <style-rule element='parameter-ctrl'>
+            <format attr='title' field='[Parameters].[Parameter 1]' value='Metric Swap Parameter'>
+              <formatted-text>
+                <run>Metric Swap Parameter</run>
+              </formatted-text>
+            </format>
+          </style-rule>
+        </style>
         <panes>
           <pane selection-relaxation-option='selection-relaxation-allow'>
             <view>
@@ -1075,17 +1149,21 @@
             </view>
             <mark class='Automatic' />
             <encodings>
-              <text column='[federated.0kmd8y60u0cori14g08m30vkwslf].[cnt:policy_type:qk]' />
+              <text column='[federated.0kmd8y60u0cori14g08m30vkwslf].[Multiple Values]' />
             </encodings>
             <style>
               <style-rule element='mark'>
                 <format attr='mark-labels-show' value='true' />
               </style-rule>
+              <style-rule element='pane'>
+                <format attr='minwidth' value='-1' />
+                <format attr='maxwidth' value='-1' />
+              </style-rule>
             </style>
           </pane>
         </panes>
-        <rows>[federated.0kmd8y60u0cori14g08m30vkwslf].[none:policy_type:nk]</rows>
-        <cols>([federated.0kmd8y60u0cori14g08m30vkwslf].[qr:effective_to_date:ok] / [federated.0kmd8y60u0cori14g08m30vkwslf].[mn:effective_to_date:ok])</cols>
+        <rows>([federated.0kmd8y60u0cori14g08m30vkwslf].[qr:effective_to_date:ok] / [federated.0kmd8y60u0cori14g08m30vkwslf].[mn:effective_to_date:ok])</rows>
+        <cols>([federated.0kmd8y60u0cori14g08m30vkwslf].[none:policy_type:nk] / [federated.0kmd8y60u0cori14g08m30vkwslf].[:Measure Names])</cols>
       </table>
       <simple-id uuid='{6880125D-A9D7-4141-9FB5-7767B42BD089}' />
     </worksheet>
@@ -2535,6 +2613,9 @@
           <filter class='categorical' column='[federated.0kmd8y60u0cori14g08m30vkwslf].[Action (MONTH(effective_to_date))]'>
             <groupfilter function='level-members' level='[mn:effective_to_date:ok]' user:ui-action-filter='[Action1_53AF7DAB90BA4BCFA2C850065114C38E]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
+          <filter class='categorical' column='[federated.0kmd8y60u0cori14g08m30vkwslf].[usr:Calculation_1185572646178607119:nk]'>
+            <groupfilter function='level-members' level='[usr:Calculation_1185572646178607119:nk]' />
+          </filter>
           <slices>
             <column>[federated.0kmd8y60u0cori14g08m30vkwslf].[:Measure Names]</column>
             <column>[federated.0kmd8y60u0cori14g08m30vkwslf].[mn:effective_to_date:ok]</column>
@@ -2547,6 +2628,7 @@
             <column>[federated.0kmd8y60u0cori14g08m30vkwslf].[none:gender:nk]</column>
             <column>[federated.0kmd8y60u0cori14g08m30vkwslf].[none:income (bin):ok]</column>
             <column>[federated.0kmd8y60u0cori14g08m30vkwslf].[Action (MONTH(effective_to_date))]</column>
+            <column>[federated.0kmd8y60u0cori14g08m30vkwslf].[usr:Calculation_1185572646178607119:nk]</column>
           </slices>
           <aggregation value='true' />
         </view>
@@ -3612,8 +3694,8 @@ Distinct Count:
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='2100' minheight='2100' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='98' type-v2='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98140' id='97' param='vert' type-v2='layout-flow' w='98400' x='800' y='930'>
+            <zone h='100000' id='100' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98140' id='99' param='vert' type-v2='layout-flow' w='98400' x='800' y='930'>
                 <zone forceUpdate='true' h='4472' id='32' type-v2='text' w='98400' x='800' y='930'>
                   <formatted-text>
                     <run bold='true' fontsize='18'>UNIT ECONOMICS: DEMOGRAFICS</run>
@@ -4009,8 +4091,8 @@ Distinct Count:
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='2150' minheight='2150' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='98' type-v2='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98140' id='97' param='vert' type-v2='layout-flow' w='98400' x='800' y='930'>
+            <zone h='100000' id='100' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98140' id='99' param='vert' type-v2='layout-flow' w='98400' x='800' y='930'>
                 <zone forceUpdate='true' h='4471' id='32' type-v2='text' w='98400' x='800' y='930'>
                   <formatted-text>
                     <run bold='true' fontsize='18'>UNIT ECONOMICS: % of Total per Dimension</run>
@@ -4352,8 +4434,8 @@ Distinct Count:
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='1500' minheight='1500' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='87' type-v2='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98140' id='86' param='vert' type-v2='layout-flow' w='98400' x='800' y='930'>
+            <zone h='100000' id='89' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98140' id='88' param='vert' type-v2='layout-flow' w='98400' x='800' y='930'>
                 <zone forceUpdate='true' h='4471' id='32' type-v2='text' w='98400' x='800' y='930'>
                   <formatted-text>
                     <run bold='true' fontsize='18'>UNIT ECONOMICS: PRODUCT/COVERAGE</run>
@@ -4487,24 +4569,24 @@ Distinct Count:
       <simple-id uuid='{5F9CB26C-0CF5-4EAD-A282-C6C4CC8C9D27}' />
     </dashboard>
   </dashboards>
-  <windows source-height='30'>
+  <windows source-height='37'>
     <window class='worksheet' name='MotherSheet'>
       <cards>
         <edge name='left'>
-          <strip size='128'>
+          <strip size='160'>
             <card type='pages' />
             <card type='filters' />
             <card type='marks' />
           </strip>
         </edge>
         <edge name='top'>
-          <strip size='30'>
+          <strip size='38'>
             <card type='columns' />
           </strip>
-          <strip size='30'>
+          <strip size='38'>
             <card type='rows' />
           </strip>
-          <strip size='24'>
+          <strip size='31'>
             <card type='title' />
           </strip>
         </edge>
@@ -4523,51 +4605,57 @@ Distinct Count:
       <active id='-1' />
       <simple-id uuid='{15026B6D-72D0-454B-9CE3-DE499E7E7FC4}' />
     </window>
-    <window class='worksheet' name='First insights'>
-      <cards>
-        <edge name='left'>
-          <strip size='128'>
-            <card type='pages' />
-            <card type='filters' />
-            <card type='marks' />
-          </strip>
-        </edge>
-        <edge name='top'>
-          <strip size='30'>
-            <card type='columns' />
-          </strip>
-          <strip size='30'>
-            <card type='rows' />
-          </strip>
-          <strip size='24'>
-            <card type='title' />
-          </strip>
-        </edge>
-      </cards>
-      <simple-id uuid='{8E1BEF68-1AC6-41A8-944E-A3A0B3BB9C7D}' />
-    </window>
-    <window class='worksheet' name='Coverage and Premia'>
+    <window class='worksheet' name='First insights &amp; Parameter'>
       <cards>
         <edge name='left'>
           <strip size='160'>
             <card type='pages' />
             <card type='filters' />
             <card type='marks' />
+            <card type='measures' />
           </strip>
         </edge>
         <edge name='top'>
-          <strip size='30'>
+          <strip size='38'>
             <card type='columns' />
           </strip>
-          <strip size='30'>
+          <strip size='38'>
             <card type='rows' />
           </strip>
-          <strip size='30'>
+          <strip size='31'>
             <card type='title' />
           </strip>
         </edge>
         <edge name='right'>
           <strip size='160'>
+            <card custom-title='true' mode='compact' param='[Parameters].[Parameter 1]' type='parameter' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{8E1BEF68-1AC6-41A8-944E-A3A0B3BB9C7D}' />
+    </window>
+    <window class='worksheet' maximized='true' name='Coverage and Premia'>
+      <cards>
+        <edge name='left'>
+          <strip size='200'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='38'>
+            <card type='columns' />
+          </strip>
+          <strip size='38'>
+            <card type='rows' />
+          </strip>
+          <strip size='38'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='200'>
             <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[none:coverage:nk]' type='color' />
           </strip>
         </edge>
@@ -4577,7 +4665,7 @@ Distinct Count:
     <window class='worksheet' name='CLTV vs. Claims'>
       <cards>
         <edge name='left'>
-          <strip size='160'>
+          <strip size='200'>
             <card type='pages' />
             <card type='filters' />
             <card type='marks' />
@@ -4585,13 +4673,13 @@ Distinct Count:
           </strip>
         </edge>
         <edge name='top'>
-          <strip size='30'>
+          <strip size='38'>
             <card type='columns' />
           </strip>
-          <strip size='30'>
+          <strip size='38'>
             <card type='rows' />
           </strip>
-          <strip size='30'>
+          <strip size='38'>
             <card type='title' />
           </strip>
         </edge>
@@ -4601,7 +4689,7 @@ Distinct Count:
     <window class='worksheet' name='Float CLTV vs. Claims &amp; UnitEconomics'>
       <cards>
         <edge name='left'>
-          <strip size='160'>
+          <strip size='200'>
             <card type='pages' />
             <card type='filters' />
             <card type='marks' />
@@ -4609,18 +4697,18 @@ Distinct Count:
           </strip>
         </edge>
         <edge name='top'>
-          <strip size='30'>
+          <strip size='38'>
             <card type='columns' />
           </strip>
-          <strip size='30'>
+          <strip size='38'>
             <card type='rows' />
           </strip>
-          <strip size='30'>
+          <strip size='38'>
             <card type='title' />
           </strip>
         </edge>
         <edge name='right'>
-          <strip size='128'>
+          <strip size='160'>
             <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[cnt:customer_lifetime_value:qk]' type='color' />
             <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[cnt:Calculation_1185572644806074374:qk]' type='color' />
             <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[sum:Calculation_1185572644795682821:qk]' type='color' />
@@ -4635,6 +4723,365 @@ Distinct Count:
     <window class='worksheet' name='Avg UE over time'>
       <cards>
         <edge name='left'>
+          <strip size='200'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='38'>
+            <card type='columns' />
+          </strip>
+          <strip size='38'>
+            <card type='rows' />
+          </strip>
+          <strip size='38'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='2' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[:Measure Names]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{D5B77E72-1DB3-4C5D-8BCF-CA917018C965}' />
+    </window>
+    <window class='worksheet' name='UE Overall'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='38'>
+            <card type='columns' />
+          </strip>
+          <strip size='38'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{926AB694-2F41-461C-A0F1-D3F7DE68F7A8}' />
+    </window>
+    <window class='worksheet' name='UE per State'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='38'>
+            <card type='columns' />
+          </strip>
+          <strip size='38'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card param='[federated.0kmd8y60u0cori14g08m30vkwslf].[usr:Calculation_1185572646178607119:nk]' show-morefewerbutton='false' type='filter' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{571D9F91-5B9E-4C2B-876F-594EF21253E6}' />
+    </window>
+    <window class='worksheet' name='UE per State GrandTotal'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='38'>
+            <card type='columns' />
+          </strip>
+          <strip size='38'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{9CA5D7A0-8D75-47F3-B0C0-384D823C2121}' />
+    </window>
+    <window class='worksheet' name='UE per Gender'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='38'>
+            <card type='columns' />
+          </strip>
+          <strip size='38'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[usr:Calculation_1185572646178607119:nk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{55DC0922-D522-4886-BE1C-C792434C4B55}' />
+    </window>
+    <window class='worksheet' name='UE Overall static'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='38'>
+            <card type='columns' />
+          </strip>
+          <strip size='38'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{0C51AA5D-1BDC-4DAA-8334-242024EFE6C7}' />
+    </window>
+    <window class='worksheet' name='UE per Education'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='38'>
+            <card type='columns' />
+          </strip>
+          <strip size='38'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[usr:Calculation_1185572646178607119:nk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{C61C2422-9BE0-40DE-827E-9982F198DAF3}' />
+    </window>
+    <window class='worksheet' name='UE per Employment'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='38'>
+            <card type='columns' />
+          </strip>
+          <strip size='38'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[usr:Calculation_1185572646178607119:nk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{E58FE37C-D19E-4E01-A537-19B622DFDBBB}' />
+    </window>
+    <window class='worksheet' name='UE per Income (bins)'>
+      <cards>
+        <edge name='left'>
+          <strip size='259'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='38'>
+            <card type='columns' />
+          </strip>
+          <strip size='38'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[usr:Calculation_1185572646178607119:nk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{94175CF4-1A77-4373-B760-061A77B8C188}' />
+    </window>
+    <window class='worksheet' name='UE total per Income (bins)'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='38'>
+            <card type='columns' />
+          </strip>
+          <strip size='38'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[sum:Calculation_1185572644809060359:qk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{2DA89B20-0AFC-424B-8596-6FB986691B1A}' />
+    </window>
+    <window class='worksheet' name='UE total per State'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='38'>
+            <card type='columns' />
+          </strip>
+          <strip size='38'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[sum:Calculation_1185572644809060359:qk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{71CE377D-2FF7-4402-803B-844984E3BAA5}' />
+    </window>
+    <window class='worksheet' name='UE per Policy_Type'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='38'>
+            <card type='columns' />
+          </strip>
+          <strip size='38'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[usr:Calculation_1185572646178607119:nk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{5B32AC5F-FDFA-4A99-9263-6475FA16523C}' />
+    </window>
+    <window class='worksheet' name='UE per Policy'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[usr:Calculation_1185572646178607119:nk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{CA120B4F-28D7-4442-AB34-537B02E7E450}' />
+    </window>
+    <window class='worksheet' name='UE total per Policy'>
+      <cards>
+        <edge name='left'>
           <strip size='160'>
             <card type='pages' />
             <card type='filters' />
@@ -4648,366 +5095,12 @@ Distinct Count:
           <strip size='2147483647'>
             <card type='rows' />
           </strip>
-          <strip size='2147483647'>
+          <strip size='31'>
             <card type='title' />
           </strip>
         </edge>
         <edge name='right'>
-          <strip size='128'>
-            <card pane-specification-id='2' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[:Measure Names]' type='color' />
-          </strip>
-        </edge>
-      </cards>
-      <simple-id uuid='{D5B77E72-1DB3-4C5D-8BCF-CA917018C965}' />
-    </window>
-    <window class='worksheet' name='UE Overall'>
-      <cards>
-        <edge name='left'>
-          <strip size='128'>
-            <card type='pages' />
-            <card type='filters' />
-            <card type='marks' />
-            <card type='measures' />
-          </strip>
-        </edge>
-        <edge name='top'>
-          <strip size='30'>
-            <card type='columns' />
-          </strip>
-          <strip size='30'>
-            <card type='rows' />
-          </strip>
-          <strip size='24'>
-            <card type='title' />
-          </strip>
-        </edge>
-      </cards>
-      <simple-id uuid='{926AB694-2F41-461C-A0F1-D3F7DE68F7A8}' />
-    </window>
-    <window class='worksheet' name='UE per State'>
-      <cards>
-        <edge name='left'>
-          <strip size='128'>
-            <card type='pages' />
-            <card type='filters' />
-            <card type='marks' />
-            <card type='measures' />
-          </strip>
-        </edge>
-        <edge name='top'>
-          <strip size='30'>
-            <card type='columns' />
-          </strip>
-          <strip size='30'>
-            <card type='rows' />
-          </strip>
-          <strip size='24'>
-            <card type='title' />
-          </strip>
-        </edge>
-      </cards>
-      <simple-id uuid='{571D9F91-5B9E-4C2B-876F-594EF21253E6}' />
-    </window>
-    <window class='worksheet' name='UE per State GrandTotal'>
-      <cards>
-        <edge name='left'>
-          <strip size='128'>
-            <card type='pages' />
-            <card type='filters' />
-            <card type='marks' />
-            <card type='measures' />
-          </strip>
-        </edge>
-        <edge name='top'>
-          <strip size='30'>
-            <card type='columns' />
-          </strip>
-          <strip size='30'>
-            <card type='rows' />
-          </strip>
-          <strip size='24'>
-            <card type='title' />
-          </strip>
-        </edge>
-      </cards>
-      <simple-id uuid='{9CA5D7A0-8D75-47F3-B0C0-384D823C2121}' />
-    </window>
-    <window class='worksheet' name='UE per Gender'>
-      <cards>
-        <edge name='left'>
-          <strip size='128'>
-            <card type='pages' />
-            <card type='filters' />
-            <card type='marks' />
-            <card type='measures' />
-          </strip>
-        </edge>
-        <edge name='top'>
-          <strip size='30'>
-            <card type='columns' />
-          </strip>
-          <strip size='30'>
-            <card type='rows' />
-          </strip>
-          <strip size='24'>
-            <card type='title' />
-          </strip>
-        </edge>
-        <edge name='right'>
-          <strip size='128'>
-            <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[usr:Calculation_1185572646178607119:nk]' type='color' />
-          </strip>
-        </edge>
-      </cards>
-      <simple-id uuid='{55DC0922-D522-4886-BE1C-C792434C4B55}' />
-    </window>
-    <window class='worksheet' name='UE Overall static'>
-      <cards>
-        <edge name='left'>
-          <strip size='128'>
-            <card type='pages' />
-            <card type='filters' />
-            <card type='marks' />
-            <card type='measures' />
-          </strip>
-        </edge>
-        <edge name='top'>
-          <strip size='30'>
-            <card type='columns' />
-          </strip>
-          <strip size='30'>
-            <card type='rows' />
-          </strip>
-          <strip size='24'>
-            <card type='title' />
-          </strip>
-        </edge>
-      </cards>
-      <simple-id uuid='{0C51AA5D-1BDC-4DAA-8334-242024EFE6C7}' />
-    </window>
-    <window class='worksheet' name='UE per Education'>
-      <cards>
-        <edge name='left'>
-          <strip size='128'>
-            <card type='pages' />
-            <card type='filters' />
-            <card type='marks' />
-            <card type='measures' />
-          </strip>
-        </edge>
-        <edge name='top'>
-          <strip size='30'>
-            <card type='columns' />
-          </strip>
-          <strip size='30'>
-            <card type='rows' />
-          </strip>
-          <strip size='24'>
-            <card type='title' />
-          </strip>
-        </edge>
-        <edge name='right'>
-          <strip size='128'>
-            <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[usr:Calculation_1185572646178607119:nk]' type='color' />
-          </strip>
-        </edge>
-      </cards>
-      <simple-id uuid='{C61C2422-9BE0-40DE-827E-9982F198DAF3}' />
-    </window>
-    <window class='worksheet' name='UE per Employment'>
-      <cards>
-        <edge name='left'>
-          <strip size='128'>
-            <card type='pages' />
-            <card type='filters' />
-            <card type='marks' />
-            <card type='measures' />
-          </strip>
-        </edge>
-        <edge name='top'>
-          <strip size='30'>
-            <card type='columns' />
-          </strip>
-          <strip size='30'>
-            <card type='rows' />
-          </strip>
-          <strip size='24'>
-            <card type='title' />
-          </strip>
-        </edge>
-        <edge name='right'>
-          <strip size='128'>
-            <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[usr:Calculation_1185572646178607119:nk]' type='color' />
-          </strip>
-        </edge>
-      </cards>
-      <simple-id uuid='{E58FE37C-D19E-4E01-A537-19B622DFDBBB}' />
-    </window>
-    <window class='worksheet' name='UE per Income (bins)'>
-      <cards>
-        <edge name='left'>
-          <strip size='128'>
-            <card type='pages' />
-            <card type='filters' />
-            <card type='marks' />
-            <card type='measures' />
-          </strip>
-        </edge>
-        <edge name='top'>
-          <strip size='30'>
-            <card type='columns' />
-          </strip>
-          <strip size='30'>
-            <card type='rows' />
-          </strip>
-          <strip size='24'>
-            <card type='title' />
-          </strip>
-        </edge>
-        <edge name='right'>
-          <strip size='128'>
-            <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[usr:Calculation_1185572646178607119:nk]' type='color' />
-          </strip>
-        </edge>
-      </cards>
-      <simple-id uuid='{94175CF4-1A77-4373-B760-061A77B8C188}' />
-    </window>
-    <window class='worksheet' name='UE total per Income (bins)'>
-      <cards>
-        <edge name='left'>
-          <strip size='128'>
-            <card type='pages' />
-            <card type='filters' />
-            <card type='marks' />
-          </strip>
-        </edge>
-        <edge name='top'>
-          <strip size='30'>
-            <card type='columns' />
-          </strip>
-          <strip size='30'>
-            <card type='rows' />
-          </strip>
-          <strip size='24'>
-            <card type='title' />
-          </strip>
-        </edge>
-        <edge name='right'>
-          <strip size='128'>
-            <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[sum:Calculation_1185572644809060359:qk]' type='color' />
-          </strip>
-        </edge>
-      </cards>
-      <simple-id uuid='{2DA89B20-0AFC-424B-8596-6FB986691B1A}' />
-    </window>
-    <window class='worksheet' name='UE total per State'>
-      <cards>
-        <edge name='left'>
-          <strip size='128'>
-            <card type='pages' />
-            <card type='filters' />
-            <card type='marks' />
-          </strip>
-        </edge>
-        <edge name='top'>
-          <strip size='30'>
-            <card type='columns' />
-          </strip>
-          <strip size='30'>
-            <card type='rows' />
-          </strip>
-          <strip size='24'>
-            <card type='title' />
-          </strip>
-        </edge>
-        <edge name='right'>
-          <strip size='128'>
-            <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[sum:Calculation_1185572644809060359:qk]' type='color' />
-          </strip>
-        </edge>
-      </cards>
-      <simple-id uuid='{71CE377D-2FF7-4402-803B-844984E3BAA5}' />
-    </window>
-    <window class='worksheet' name='UE per Policy_Type'>
-      <cards>
-        <edge name='left'>
-          <strip size='128'>
-            <card type='pages' />
-            <card type='filters' />
-            <card type='marks' />
-            <card type='measures' />
-          </strip>
-        </edge>
-        <edge name='top'>
-          <strip size='30'>
-            <card type='columns' />
-          </strip>
-          <strip size='30'>
-            <card type='rows' />
-          </strip>
-          <strip size='24'>
-            <card type='title' />
-          </strip>
-        </edge>
-        <edge name='right'>
-          <strip size='128'>
-            <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[usr:Calculation_1185572646178607119:nk]' type='color' />
-          </strip>
-        </edge>
-      </cards>
-      <simple-id uuid='{5B32AC5F-FDFA-4A99-9263-6475FA16523C}' />
-    </window>
-    <window class='worksheet' name='UE per Policy'>
-      <cards>
-        <edge name='left'>
-          <strip size='128'>
-            <card type='pages' />
-            <card type='filters' />
-            <card type='marks' />
-            <card type='measures' />
-          </strip>
-        </edge>
-        <edge name='top'>
-          <strip size='2147483647'>
-            <card type='columns' />
-          </strip>
-          <strip size='2147483647'>
-            <card type='rows' />
-          </strip>
-          <strip size='24'>
-            <card type='title' />
-          </strip>
-        </edge>
-        <edge name='right'>
-          <strip size='128'>
-            <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[usr:Calculation_1185572646178607119:nk]' type='color' />
-          </strip>
-        </edge>
-      </cards>
-      <simple-id uuid='{CA120B4F-28D7-4442-AB34-537B02E7E450}' />
-    </window>
-    <window class='worksheet' name='UE total per Policy'>
-      <cards>
-        <edge name='left'>
-          <strip size='128'>
-            <card type='pages' />
-            <card type='filters' />
-            <card type='marks' />
-          </strip>
-        </edge>
-        <edge name='top'>
-          <strip size='2147483647'>
-            <card type='columns' />
-          </strip>
-          <strip size='2147483647'>
-            <card type='rows' />
-          </strip>
-          <strip size='24'>
-            <card type='title' />
-          </strip>
-        </edge>
-        <edge name='right'>
-          <strip size='128'>
+          <strip size='160'>
             <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[sum:Calculation_1185572644809060359:qk]' type='color' />
           </strip>
         </edge>
@@ -5017,7 +5110,7 @@ Distinct Count:
     <window class='worksheet' name='UE per Vehicle Class'>
       <cards>
         <edge name='left'>
-          <strip size='128'>
+          <strip size='160'>
             <card type='pages' />
             <card type='filters' />
             <card type='marks' />
@@ -5025,18 +5118,18 @@ Distinct Count:
           </strip>
         </edge>
         <edge name='top'>
-          <strip size='30'>
+          <strip size='38'>
             <card type='columns' />
           </strip>
-          <strip size='30'>
+          <strip size='38'>
             <card type='rows' />
           </strip>
-          <strip size='24'>
+          <strip size='31'>
             <card type='title' />
           </strip>
         </edge>
         <edge name='right'>
-          <strip size='128'>
+          <strip size='160'>
             <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[usr:Calculation_1185572646178607119:nk]' type='color' />
           </strip>
         </edge>
@@ -5046,32 +5139,32 @@ Distinct Count:
     <window class='worksheet' name='UE total per Vehicle Class'>
       <cards>
         <edge name='left'>
-          <strip size='128'>
+          <strip size='160'>
             <card type='pages' />
             <card type='filters' />
             <card type='marks' />
           </strip>
         </edge>
         <edge name='top'>
-          <strip size='2147483647'>
+          <strip size='38'>
             <card type='columns' />
           </strip>
-          <strip size='2147483647'>
+          <strip size='38'>
             <card type='rows' />
           </strip>
-          <strip size='24'>
+          <strip size='31'>
             <card type='title' />
           </strip>
         </edge>
         <edge name='right'>
-          <strip size='128'>
+          <strip size='160'>
             <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[sum:Calculation_1185572644809060359:qk]' type='color' />
           </strip>
         </edge>
       </cards>
       <simple-id uuid='{1D7DED04-316D-4779-B469-51ACC763BC7B}' />
     </window>
-    <window class='dashboard' maximized='true' name='UE Product Coverage'>
+    <window class='dashboard' name='UE Product Coverage'>
       <viewpoints>
         <viewpoint name='UE Overall' />
         <viewpoint name='UE per Policy' />

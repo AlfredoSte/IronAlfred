@@ -575,7 +575,7 @@
           <groupfilter function='level-members' level='[state]' />
         </groupfilter>
       </group>
-      <layout _.fcp.SchemaViewerObjectModel.false...dim-percentage='0.5' _.fcp.SchemaViewerObjectModel.false...measure-percentage='0.4' _.fcp.SchemaViewerObjectModel.true...common-percentage='0.961972' _.fcp.SchemaViewerObjectModel.true...user-set-layout-v2='true' dim-ordering='alphabetic' measure-ordering='alphabetic' parameter-percentage='0.0380282' show-structure='true' />
+      <layout _.fcp.SchemaViewerObjectModel.false...dim-percentage='0.5' _.fcp.SchemaViewerObjectModel.false...measure-percentage='0.4' _.fcp.SchemaViewerObjectModel.true...common-percentage='0.829942' _.fcp.SchemaViewerObjectModel.true...user-set-layout-v2='true' dim-ordering='alphabetic' measure-ordering='alphabetic' parameter-percentage='0.170058' show-structure='true' />
       <style>
         <style-rule element='mark'>
           <encoding attr='color' field='[:Measure Names]' type='palette'>
@@ -3552,7 +3552,7 @@
               </zone>
             </zone>
             <zone fixed-size='160' h='93668' id='7' is-fixed='true' param='vert' type-v2='layout-flow' w='16000' x='83200' y='5402'>
-              <zone h='6511' id='10' mode='checkdropdown' name='UE per State' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[mn:effective_to_date:ok]' type-v2='filter' values='database' w='16000' x='83200' y='5402'>
+              <zone h='7093' id='10' mode='checkdropdown' name='UE per State' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[mn:effective_to_date:ok]' type-v2='filter' values='database' w='16000' x='83200' y='5402'>
                 <zone-style>
                   <format attr='border-color' value='#000000' />
                   <format attr='border-style' value='none' />
@@ -3560,7 +3560,7 @@
                   <format attr='margin' value='4' />
                 </zone-style>
               </zone>
-              <zone h='6511' id='11' mode='checkdropdown' name='UE per State' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[none:state:nk]' type-v2='filter' values='database' w='16000' x='83200' y='11913'>
+              <zone h='7093' id='11' mode='checkdropdown' name='UE per State' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[none:state:nk]' type-v2='filter' values='database' w='16000' x='83200' y='12495'>
                 <zone-style>
                   <format attr='border-color' value='#000000' />
                   <format attr='border-style' value='none' />
@@ -3568,7 +3568,7 @@
                   <format attr='margin' value='4' />
                 </zone-style>
               </zone>
-              <zone h='6511' id='26' mode='checkdropdown' name='UE per Employment' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[none:employmentstatus:nk]' type-v2='filter' values='database' w='16000' x='83200' y='18424'>
+              <zone h='7093' id='26' mode='checkdropdown' name='UE per Employment' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[none:employmentstatus:nk]' type-v2='filter' values='database' w='16000' x='83200' y='19588'>
                 <zone-style>
                   <format attr='border-color' value='#000000' />
                   <format attr='border-style' value='none' />
@@ -3576,7 +3576,7 @@
                   <format attr='margin' value='4' />
                 </zone-style>
               </zone>
-              <zone h='6511' id='29' mode='checkdropdown' name='UE per Education' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[none:education:nk]' type-v2='filter' values='database' w='16000' x='83200' y='24935'>
+              <zone h='7093' id='29' mode='checkdropdown' name='UE per Education' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[none:education:nk]' type-v2='filter' values='database' w='16000' x='83200' y='26681'>
                 <zone-style>
                   <format attr='border-color' value='#000000' />
                   <format attr='border-style' value='none' />
@@ -3584,7 +3584,7 @@
                   <format attr='margin' value='4' />
                 </zone-style>
               </zone>
-              <zone h='6511' id='30' mode='checkdropdown' name='UE per Gender' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[none:gender:nk]' type-v2='filter' values='database' w='16000' x='83200' y='31446'>
+              <zone h='7093' id='30' mode='checkdropdown' name='UE per Gender' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[none:gender:nk]' type-v2='filter' values='database' w='16000' x='83200' y='33774'>
                 <zone-style>
                   <format attr='border-color' value='#000000' />
                   <format attr='border-style' value='none' />
@@ -3592,7 +3592,7 @@
                   <format attr='margin' value='4' />
                 </zone-style>
               </zone>
-              <zone h='6511' id='31' mode='checkdropdown' name='UE per Income (bins)' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[none:income (bin):ok]' type-v2='filter' values='database' w='16000' x='83200' y='37957'>
+              <zone h='7093' id='31' mode='checkdropdown' name='UE per Income (bins)' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[none:income (bin):ok]' type-v2='filter' values='database' w='16000' x='83200' y='40867'>
                 <zone-style>
                   <format attr='border-color' value='#000000' />
                   <format attr='border-style' value='none' />
@@ -3600,7 +3600,7 @@
                   <format attr='margin' value='4' />
                 </zone-style>
               </zone>
-              <zone forceUpdate='true' h='22907' id='35' type-v2='text' w='16000' x='83200' y='44468'>
+              <zone forceUpdate='true' h='22907' id='35' type-v2='text' w='16000' x='83200' y='47960'>
                 <formatted-text>
                   <run bold='true'>NOTES:</run>
                   <run>
@@ -3619,7 +3619,7 @@ Best UE Combo seems to be:
                   <format attr='margin' value='4' />
                 </zone-style>
               </zone>
-              <zone fixed-size='24' h='3721' id='36' is-fixed='true' type-v2='empty' w='16000' x='83200' y='67375'>
+              <zone fixed-size='24' h='3721' id='36' is-fixed='true' type-v2='empty' w='16000' x='83200' y='70867'>
                 <zone-style>
                   <format attr='border-color' value='#000000' />
                   <format attr='border-style' value='none' />
@@ -3627,7 +3627,7 @@ Best UE Combo seems to be:
                   <format attr='margin' value='4' />
                 </zone-style>
               </zone>
-              <zone forceUpdate='true' h='18023' id='39' type-v2='text' w='16000' x='83200' y='71096'>
+              <zone forceUpdate='true' h='18023' id='39' type-v2='text' w='16000' x='83200' y='74588'>
                 <formatted-text>
                   <run bold='true'>REMEMBER:</run>
                   <run>
@@ -3645,7 +3645,7 @@ Distinct Count:
                   <format attr='margin' value='4' />
                 </zone-style>
               </zone>
-              <zone h='9951' id='40' type-v2='empty' w='16000' x='83200' y='89119'>
+              <zone h='6459' id='40' type-v2='empty' w='16000' x='83200' y='92611'>
                 <zone-style>
                   <format attr='border-color' value='#000000' />
                   <format attr='border-style' value='none' />
@@ -4557,20 +4557,20 @@ Distinct Count:
     <window class='worksheet' name='MotherSheet'>
       <cards>
         <edge name='left'>
-          <strip size='160'>
+          <strip size='128'>
             <card type='pages' />
             <card type='filters' />
             <card type='marks' />
           </strip>
         </edge>
         <edge name='top'>
-          <strip size='38'>
+          <strip size='30'>
             <card type='columns' />
           </strip>
-          <strip size='38'>
+          <strip size='30'>
             <card type='rows' />
           </strip>
-          <strip size='31'>
+          <strip size='24'>
             <card type='title' />
           </strip>
         </edge>
@@ -4586,13 +4586,13 @@ Distinct Count:
         <viewpoint name='UE per Income (bins)' />
         <viewpoint name='UE per State' />
       </viewpoints>
-      <active id='11' />
+      <active id='-1' />
       <simple-id uuid='{15026B6D-72D0-454B-9CE3-DE499E7E7FC4}' />
     </window>
-    <window class='worksheet' name='First insights &amp; Parameter'>
+    <window class='worksheet' maximized='true' name='First insights &amp; Parameter'>
       <cards>
         <edge name='left'>
-          <strip size='160'>
+          <strip size='128'>
             <card type='pages' />
             <card type='filters' />
             <card type='marks' />
@@ -4600,18 +4600,18 @@ Distinct Count:
           </strip>
         </edge>
         <edge name='top'>
-          <strip size='38'>
+          <strip size='30'>
             <card type='columns' />
           </strip>
-          <strip size='38'>
+          <strip size='30'>
             <card type='rows' />
           </strip>
-          <strip size='31'>
+          <strip size='24'>
             <card type='title' />
           </strip>
         </edge>
         <edge name='right'>
-          <strip size='160'>
+          <strip size='128'>
             <card custom-title='true' mode='compact' param='[Parameters].[Parameter 1]' type='parameter' />
           </strip>
         </edge>
@@ -4621,25 +4621,25 @@ Distinct Count:
     <window class='worksheet' name='Coverage and Premia'>
       <cards>
         <edge name='left'>
-          <strip size='250'>
+          <strip size='200'>
             <card type='pages' />
             <card type='filters' />
             <card type='marks' />
           </strip>
         </edge>
         <edge name='top'>
-          <strip size='64'>
+          <strip size='51'>
             <card type='columns' />
           </strip>
-          <strip size='109'>
+          <strip size='87'>
             <card type='rows' />
           </strip>
-          <strip size='47'>
+          <strip size='37'>
             <card type='title' />
           </strip>
         </edge>
         <edge name='right'>
-          <strip size='250'>
+          <strip size='200'>
             <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[none:coverage:nk]' type='color' />
           </strip>
         </edge>
@@ -4649,7 +4649,7 @@ Distinct Count:
     <window class='worksheet' name='CLTV vs. Claims'>
       <cards>
         <edge name='left'>
-          <strip size='200'>
+          <strip size='160'>
             <card type='pages' />
             <card type='filters' />
             <card type='marks' />
@@ -4657,13 +4657,13 @@ Distinct Count:
           </strip>
         </edge>
         <edge name='top'>
-          <strip size='38'>
+          <strip size='30'>
             <card type='columns' />
           </strip>
-          <strip size='38'>
+          <strip size='30'>
             <card type='rows' />
           </strip>
-          <strip size='38'>
+          <strip size='30'>
             <card type='title' />
           </strip>
         </edge>
@@ -4673,7 +4673,7 @@ Distinct Count:
     <window class='worksheet' name='Float CLTV vs. Claims &amp; UnitEconomics'>
       <cards>
         <edge name='left'>
-          <strip size='200'>
+          <strip size='160'>
             <card type='pages' />
             <card type='filters' />
             <card type='marks' />
@@ -4681,18 +4681,18 @@ Distinct Count:
           </strip>
         </edge>
         <edge name='top'>
-          <strip size='38'>
+          <strip size='30'>
             <card type='columns' />
           </strip>
-          <strip size='38'>
+          <strip size='30'>
             <card type='rows' />
           </strip>
-          <strip size='38'>
+          <strip size='30'>
             <card type='title' />
           </strip>
         </edge>
         <edge name='right'>
-          <strip size='160'>
+          <strip size='128'>
             <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[cnt:customer_lifetime_value:qk]' type='color' />
             <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[cnt:Calculation_1185572644806074374:qk]' type='color' />
             <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[sum:Calculation_1185572644795682821:qk]' type='color' />
@@ -4707,25 +4707,25 @@ Distinct Count:
     <window class='worksheet' name='Avg UE over time'>
       <cards>
         <edge name='left'>
-          <strip size='200'>
+          <strip size='160'>
             <card type='pages' />
             <card type='filters' />
             <card type='marks' />
           </strip>
         </edge>
         <edge name='top'>
-          <strip size='38'>
+          <strip size='30'>
             <card type='columns' />
           </strip>
-          <strip size='38'>
+          <strip size='30'>
             <card type='rows' />
           </strip>
-          <strip size='38'>
+          <strip size='30'>
             <card type='title' />
           </strip>
         </edge>
         <edge name='right'>
-          <strip size='160'>
+          <strip size='128'>
             <card pane-specification-id='2' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[:Measure Names]' type='color' />
           </strip>
         </edge>
@@ -4735,7 +4735,7 @@ Distinct Count:
     <window class='worksheet' name='UE Overall'>
       <cards>
         <edge name='left'>
-          <strip size='160'>
+          <strip size='128'>
             <card type='pages' />
             <card type='filters' />
             <card type='marks' />
@@ -4743,13 +4743,13 @@ Distinct Count:
           </strip>
         </edge>
         <edge name='top'>
-          <strip size='38'>
+          <strip size='30'>
             <card type='columns' />
           </strip>
-          <strip size='38'>
+          <strip size='30'>
             <card type='rows' />
           </strip>
-          <strip size='31'>
+          <strip size='24'>
             <card type='title' />
           </strip>
         </edge>
@@ -4759,7 +4759,7 @@ Distinct Count:
     <window class='worksheet' name='UE per State'>
       <cards>
         <edge name='left'>
-          <strip size='237'>
+          <strip size='189'>
             <card type='pages' />
             <card type='filters' />
             <card type='marks' />
@@ -4767,18 +4767,18 @@ Distinct Count:
           </strip>
         </edge>
         <edge name='top'>
-          <strip size='38'>
+          <strip size='30'>
             <card type='columns' />
           </strip>
-          <strip size='38'>
+          <strip size='30'>
             <card type='rows' />
           </strip>
-          <strip size='31'>
+          <strip size='24'>
             <card type='title' />
           </strip>
         </edge>
         <edge name='right'>
-          <strip size='160'>
+          <strip size='128'>
             <card param='[federated.0kmd8y60u0cori14g08m30vkwslf].[usr:Calculation_1185572646178607119:nk]' show-morefewerbutton='false' type='filter' />
           </strip>
         </edge>
@@ -4788,7 +4788,7 @@ Distinct Count:
     <window class='worksheet' name='UE per State GrandTotal'>
       <cards>
         <edge name='left'>
-          <strip size='219'>
+          <strip size='175'>
             <card type='pages' />
             <card type='filters' />
             <card type='marks' />
@@ -4796,13 +4796,13 @@ Distinct Count:
           </strip>
         </edge>
         <edge name='top'>
-          <strip size='38'>
+          <strip size='30'>
             <card type='columns' />
           </strip>
-          <strip size='38'>
+          <strip size='30'>
             <card type='rows' />
           </strip>
-          <strip size='31'>
+          <strip size='24'>
             <card type='title' />
           </strip>
         </edge>
@@ -4812,7 +4812,7 @@ Distinct Count:
     <window class='worksheet' name='UE per Gender'>
       <cards>
         <edge name='left'>
-          <strip size='199'>
+          <strip size='159'>
             <card type='pages' />
             <card type='filters' />
             <card type='marks' />
@@ -4820,18 +4820,18 @@ Distinct Count:
           </strip>
         </edge>
         <edge name='top'>
-          <strip size='38'>
+          <strip size='30'>
             <card type='columns' />
           </strip>
-          <strip size='38'>
+          <strip size='30'>
             <card type='rows' />
           </strip>
-          <strip size='31'>
+          <strip size='24'>
             <card type='title' />
           </strip>
         </edge>
         <edge name='right'>
-          <strip size='160'>
+          <strip size='128'>
             <card pane-specification-id='0' param='[federated.0kmd8y60u0cori14g08m30vkwslf].[usr:Calculation_1185572646178607119:nk]' type='color' />
           </strip>
         </edge>
@@ -4841,7 +4841,7 @@ Distinct Count:
     <window class='worksheet' name='UE Overall static'>
       <cards>
         <edge name='left'>
-          <strip size='160'>
+          <strip size='128'>
             <card type='pages' />
             <card type='filters' />
             <card type='marks' />
@@ -4849,13 +4849,13 @@ Distinct Count:
           </strip>
         </edge>
         <edge name='top'>
-          <strip size='38'>
+          <strip size='30'>
             <card type='columns' />
           </strip>
-          <strip size='38'>
+          <strip size='30'>
             <card type='rows' />
           </strip>
-          <strip size='31'>
+          <strip size='24'>
             <card type='title' />
           </strip>
         </edge>
@@ -5158,7 +5158,7 @@ Distinct Count:
       <active id='-1' />
       <simple-id uuid='{BF153190-DF2C-40A8-99A0-30824F11BF18}' />
     </window>
-    <window class='dashboard' maximized='true' name='UE Percentage of Total'>
+    <window class='dashboard' name='UE Percentage of Total'>
       <viewpoints>
         <viewpoint name='UE Overall' />
         <viewpoint name='UE total per Income (bins)' />
